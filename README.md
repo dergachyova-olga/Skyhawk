@@ -1,5 +1,7 @@
 # Project Skyhawk
 
+The project aims to create a system that performs classification and clustering tasks on provided data in order to detect automatically generated texts or texts containing misinformation. The dectetion is based on Natural Language Processing (NLP) techniques and Machine Leanring. 
+
 ## Installation
 
 Dowload the code and unzip it in a folder that will be project's folder. On Linux system run **setup.sh** script as root user to setup virtual environment and install all necessary dependencies from **requirements.txt**. Attention: the script upgrades *virtualenv*, *pip*, and *setuptools* packages.
