@@ -2,14 +2,14 @@ import config
 import sys
 import os
 import logging
-from data_loading import DataLoader
-from feature_extraction import FeatureExtractor
-from model import Model
+from text_data_loading import TextDataLoader
+from text_feature_extraction import TextFeatureExtractor
+from text_model import TextModel
 
 
 # load configuration
 default_config_folder = os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'configs')
-default_config_file = os.path.join(default_config_folder, 'classification_inference.ini')
+default_config_file = os.path.join(default_config_folder, 'text_classification_inference.ini')
 cfg = config.load_config(sys.argv[1] if len(sys.argv) > 1 else default_config_file)
 
 
@@ -19,21 +19,21 @@ logging.info('---------------------------------------------------')
 
 
 # ---------------------------- Load model --------------------------- #
-classification_model = Model(cfg)
+classification_model = TextModel(cfg)
 
 logging.info('Loading trained classification model...')
 name, model, feature, trasformer, embeddings, label_encoder = classification_model.load()
 
 
 # ---------------------------- Load data ---------------------------- #
-data_loader = DataLoader(cfg, label_encoder)
+data_loader = TextDataLoader(cfg, label_encoder)
 
 logging.info('Loading data to be classified...')
 inference_data, invalid_id = data_loader.load_classification_data('inference')
 
 
 # ----------------------- Extract features -------------------------- #
-feature_extractor = FeatureExtractor(cfg, embeddings=embeddings)
+feature_extractor = TextFeatureExtractor(cfg, embeddings=embeddings)
 
 logging.info('Extracting %s features...' % feature)
 inference_x = feature_extractor.get_features(feature, trasformer, inference_data)

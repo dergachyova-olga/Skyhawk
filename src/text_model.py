@@ -9,7 +9,7 @@ from sklearn.cluster import KMeans
 from keras import layers, models, optimizers
 
 
-class Model(object):
+class TextModel(object):
 
     def __init__(self, cfg, df=None):
 

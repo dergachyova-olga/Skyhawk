@@ -3,14 +3,14 @@ import sys
 import os
 import logging
 import operator
-from data_loading import DataLoader
-from feature_extraction import FeatureExtractor
-from model import Model
+from text_data_loading import TextDataLoader
+from text_feature_extraction import TextFeatureExtractor
+from text_model import TextModel
 
 
 # load configuration
 default_config_folder = os.path.join(os.path.abspath(os.path.dirname(os.path.dirname(__file__))), 'configs')
-default_config_file = os.path.join(default_config_folder, 'classification_training.ini')
+default_config_file = os.path.join(default_config_folder, 'text_classification_training.ini')
 cfg = config.load_config(sys.argv[1] if len(sys.argv) > 1 else default_config_file)
 
 
@@ -20,7 +20,7 @@ logging.info('---------------------------------------------------')
 
 
 # ---------------------------- Load data ---------------------------- #
-data_loader = DataLoader(cfg)
+data_loader = TextDataLoader(cfg)
 
 logging.info('Loading train data...')
 train_x, valid_x, train_y, valid_y = data_loader.load_classification_data('train')
@@ -30,7 +30,7 @@ test_x, test_y = data_loader.load_classification_data('test')
 
 
 # ----------------------- Extract features -------------------------- #
-feature_extractor = FeatureExtractor(cfg, data_loader.df)
+feature_extractor = TextFeatureExtractor(cfg, data_loader.df)
 
 # Bag-of-Words
 if cfg.features.bow:
@@ -78,7 +78,7 @@ if cfg.features.word_embeddings:
 
 
 # -------------------- Train classifiers ---------------------------- #
-classification_model = Model(cfg, data_loader.df)
+classification_model = TextModel(cfg, data_loader.df)
 models = dict()
 
 if cfg.model.train_nb:

@@ -12,7 +12,7 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 
 
-class DataLoader(object):
+class TextDataLoader(object):
 
     def __init__(self, cfg, label_encoder=None):
 

@@ -5,7 +5,7 @@ import keras.preprocessing
 import numpy
 
 
-class FeatureExtractor(object):
+class TextFeatureExtractor(object):
 
     def __init__(self, cfg, df=None, embeddings=None):
 
